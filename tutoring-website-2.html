@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elitesphere Academy — Premium Tutoring</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --ink: #0d0d0d;
+      --cream: #f5f0e8;
+      --gold: #c9a84c;
+      --gold-light: #e8d5a3;
+      --warm-white: #faf8f3;
+      --charcoal: #2a2a2a;
+      --muted: #6b6560;
+      --border: rgba(201,168,76,0.25);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 4rem;
+      background: rgba(250,248,243,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      animation: fadeDown 0.8s ease both;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 600; letter-spacing: 0.04em;
+      color: var(--ink);
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.82rem; font-weight: 400; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--charcoal); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--ink); color: var(--cream);
+      padding: 0.6rem 1.6rem; border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      transition: background 0.25s, color 0.25s;
+    }
+    .nav-cta:hover { background: var(--gold); color: var(--ink); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 6rem 4rem 6rem 6rem;
+      animation: fadeUp 1s 0.3s ease both;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block; width: 32px; height: 1px; background: var(--gold);
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5.5vw, 5.2rem);
+      font-weight: 300; line-height: 1.1;
+      margin-bottom: 1.8rem; letter-spacing: -0.01em;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold); }
+    .hero-sub {
+      font-size: 1rem; color: var(--muted); line-height: 1.7;
+      max-width: 440px; margin-bottom: 3rem; font-weight: 300;
+    }
+    .hero-actions { display: flex; gap: 1rem; align-items: center; }
+    .btn-primary {
+      background: var(--ink); color: var(--cream);
+      padding: 0.9rem 2.4rem; border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 0.82rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold); color: var(--ink); transform: translateY(-2px); }
+    .btn-ghost {
+      background: transparent; color: var(--ink);
+      padding: 0.9rem 2.4rem;
+      border: 1px solid var(--border);
+      cursor: pointer; font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: border-color 0.25s, color 0.25s;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-stats {
+      display: flex; gap: 3rem; margin-top: 4rem;
+      padding-top: 2.5rem; border-top: 1px solid var(--border);
+    }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem; font-weight: 300; color: var(--ink);
+    }
+    .stat-label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 0.2rem; }
+
+    .hero-right {
+      position: relative; background: var(--cream);
+      animation: fadeIn 1.2s 0.5s ease both;
+    }
+    .hero-image-grid {
+      position: absolute; inset: 0;
+      display: grid; grid-template-rows: 1fr 1fr; gap: 0;
+    }
+    .hero-img-top {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 7rem; letter-spacing: -0.05em;
+    }
+    .hero-img-bottom {
+      background: var(--gold-light);
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .hero-card {
+      padding: 1.8rem;
+      background: var(--cream); margin: 1rem;
+      border-left: 3px solid var(--gold);
+    }
+    .hero-card-subject {
+      font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.4rem;
+    }
+    .hero-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 600;
+    }
+    .hero-card-detail {
+      font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem;
+    }
+    .floating-badge {
+      position: absolute; top: 2rem; right: -1rem;
+      background: var(--gold); color: var(--ink);
+      padding: 0.8rem 1.2rem; font-size: 0.72rem;
+      font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* FOUNDER */
+    .founder { padding: 5rem 6rem 3rem; background: var(--cream); }
+    .founder-inner {
+      display: flex; align-items: center; gap: 3rem;
+      border: 1px solid var(--border); padding: 3rem;
+      max-width: 800px; margin: 0 auto;
+    }
+    .founder-avatar {
+      width: 90px; height: 90px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 600; color: var(--ink);
+    }
+    .founder-label {
+      font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.4rem;
+    }
+    .founder-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 600;
+    }
+    .founder-bio {
+      font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-top: 0.5rem;
+    }
+
+    /* SUBJECTS */
+    .subjects { padding: 8rem 6rem; background: var(--warm-white); }
+    .section-header { text-align: center; margin-bottom: 5rem; }
+    .section-eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+      display: flex; align-items: center; justify-content: center; gap: 1rem;
+    }
+    .section-eyebrow::before, .section-eyebrow::after {
+      content: ''; display: block; width: 40px; height: 1px; background: var(--gold);
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 300; line-height: 1.2;
+    }
+    .subjects-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px;
+      background: var(--border);
+    }
+    .subject-card {
+      background: var(--warm-white);
+      padding: 3rem 2.5rem;
+      transition: background 0.3s;
+      cursor: pointer; position: relative; overflow: hidden;
+    }
+    .subject-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 3px; background: var(--gold);
+      transition: width 0.4s ease;
+    }
+    .subject-card:hover { background: var(--cream); }
+    .subject-card:hover::after { width: 100%; }
+    .subject-icon {
+      font-size: 2.2rem; margin-bottom: 1.5rem;
+    }
+    .subject-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 600; margin-bottom: 0.8rem;
+    }
+    .subject-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+    .subject-levels {
+      margin-top: 1.2rem; display: flex; gap: 0.5rem; flex-wrap: wrap;
+    }
+    .level-tag {
+      font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.2rem 0.6rem; border: 1px solid var(--border); color: var(--muted);
+    }
+
+    /* PRICING */
+    .pricing { padding: 8rem 6rem; background: var(--cream); }
+    .pricing-tabs {
+      display: flex; justify-content: center; gap: 0; margin-bottom: 3rem;
+    }
+    .tab-btn {
+      padding: 0.7rem 2rem; border: 1px solid var(--border);
+      background: transparent; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+      transition: all 0.2s;
+    }
+    .tab-btn.active { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+    .pricing-panel { display: none; }
+    .pricing-panel.active { display: block; }
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    }
+    .pricing-card {
+      padding: 3rem 2.5rem; background: var(--warm-white);
+      border: 1px solid var(--border); position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .pricing-card:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(0,0,0,0.08); }
+    .pricing-card.featured {
+      background: var(--ink); color: var(--cream); border-color: var(--gold);
+    }
+    .pricing-card.featured .pricing-price,
+    .pricing-card.featured .pricing-name { color: var(--cream); }
+    .pricing-card.featured .pricing-feature { border-color: rgba(201,168,76,0.2); color: rgba(245,240,232,0.7); }
+    .featured-badge {
+      position: absolute; top: -1px; right: 2rem;
+      background: var(--gold); color: var(--ink);
+      padding: 0.3rem 1rem; font-size: 0.65rem;
+      letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+    }
+    .pricing-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600; margin-bottom: 0.3rem;
+    }
+    .pricing-tagline { font-size: 0.78rem; color: var(--muted); margin-bottom: 2rem; }
+    .pricing-card.featured .pricing-tagline { color: rgba(245,240,232,0.55); }
+    .pricing-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 300; color: var(--ink);
+      display: flex; align-items: flex-start;
+    }
+    .pricing-price sup { font-size: 1.2rem; margin-top: 0.6rem; }
+    .pricing-price span { font-size: 0.82rem; align-self: flex-end; margin-bottom: 0.4rem; color: var(--muted); margin-left: 0.3rem; }
+    .pricing-card.featured .pricing-price span { color: rgba(245,240,232,0.55); }
+    .pricing-divider { height: 1px; background: var(--border); margin: 1.8rem 0; }
+    .pricing-card.featured .pricing-divider { background: rgba(201,168,76,0.25); }
+    .pricing-feature {
+      display: flex; align-items: center; gap: 0.8rem;
+      padding: 0.7rem 0; font-size: 0.83rem; color: var(--charcoal);
+      border-bottom: 1px solid var(--border);
+    }
+    .pricing-feature:last-of-type { border-bottom: none; }
+    .check { color: var(--gold); font-size: 0.9rem; }
+    .pricing-btn {
+      width: 100%; margin-top: 2rem; padding: 0.9rem;
+      border: 1px solid var(--ink); background: transparent;
+      font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
+      letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
+      transition: background 0.25s, color 0.25s;
+    }
+    .pricing-btn:hover { background: var(--ink); color: var(--cream); }
+    .pricing-card.featured .pricing-btn {
+      background: var(--gold); color: var(--ink); border-color: var(--gold);
+    }
+    .pricing-card.featured .pricing-btn:hover { background: var(--gold-light); }
+
+    /* TESTIMONIALS */
+    .testimonials { padding: 8rem 6rem; background: var(--warm-white); }
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem;
+    }
+    .testimonial-card {
+      padding: 2.5rem; border: 1px solid var(--border);
+      position: relative; transition: border-color 0.3s;
+    }
+    .testimonial-card:hover { border-color: var(--gold); }
+    .quote-mark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem; color: var(--gold); line-height: 1;
+      margin-bottom: -1rem; opacity: 0.6;
+    }
+    .testimonial-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-style: italic; line-height: 1.6;
+      color: var(--charcoal); margin-bottom: 1.5rem;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+    .author-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 600; color: var(--ink);
+    }
+    .author-name { font-size: 0.85rem; font-weight: 500; }
+    .author-detail { font-size: 0.72rem; color: var(--muted); }
+
+    /* CTA */
+    .cta-section {
+      padding: 8rem 6rem; background: var(--ink);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,0.12) 0%, transparent 70%);
+    }
+    .cta-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 5vw, 4.5rem); font-weight: 300;
+      color: var(--cream); line-height: 1.15; margin-bottom: 1.5rem;
+    }
+    .cta-section h2 em { font-style: italic; color: var(--gold); }
+    .cta-sub { color: rgba(245,240,232,0.6); font-size: 1rem; margin-bottom: 2.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .cta-contact {
+      display: flex; flex-direction: column; gap: 0.8rem;
+      align-items: center; margin-bottom: 2.5rem; position: relative; z-index: 1;
+    }
+    .cta-contact a {
+      color: var(--gold-light); font-size: 0.9rem; text-decoration: none;
+      letter-spacing: 0.05em; transition: color 0.2s;
+    }
+    .cta-contact a:hover { color: var(--gold); }
+    .cta-form {
+      display: flex; gap: 0; max-width: 480px; margin: 0 auto;
+      border: 1px solid rgba(201,168,76,0.4); position: relative; z-index: 1;
+    }
+    .cta-input {
+      flex: 1; padding: 1rem 1.4rem;
+      background: rgba(245,240,232,0.07);
+      border: none; color: var(--cream);
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      outline: none;
+    }
+    .cta-input::placeholder { color: rgba(245,240,232,0.35); }
+    .cta-submit {
+      padding: 1rem 1.8rem; background: var(--gold); color: var(--ink);
+      border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
+      letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500;
+      transition: background 0.25s;
+    }
+    .cta-submit:hover { background: var(--gold-light); }
+
+    /* FOOTER */
+    footer {
+      padding: 3rem 6rem; background: #080808; color: rgba(245,240,232,0.4);
+      border-top: 1px solid rgba(201,168,76,0.1);
+    }
+    .footer-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; color: rgba(245,240,232,0.7);
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-contact { text-align: right; }
+    .footer-contact p { font-size: 0.78rem; margin-bottom: 0.3rem; }
+    .footer-contact a { color: rgba(245,240,232,0.5); text-decoration: none; transition: color 0.2s; }
+    .footer-contact a:hover { color: var(--gold); }
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 1.5rem; border-top: 1px solid rgba(201,168,76,0.1);
+    }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,240,232,0.35); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-size: 0.72rem; }
+
+    /* ANIMATIONS */
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* SCROLL REVEAL */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 2rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 4rem 2rem; }
+      .subjects, .pricing, .testimonials, .cta-section { padding: 5rem 2rem; }
+      .founder { padding: 3rem 2rem; }
+      .founder-inner { flex-direction: column; text-align: center; gap: 1.5rem; }
+      .subjects-grid, .pricing-grid, .testimonials-grid { grid-template-columns: 1fr; }
+      footer { padding: 2rem; }
+      .footer-top { flex-direction: column; gap: 1.5rem; }
+      .footer-contact { text-align: left; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+      .pricing-tabs { flex-direction: column; align-items: center; }
+    }
+    /* WHATSAPP FLOAT PREMIUM */
+    .whatsapp-float {
+      position: fixed; bottom: 2.2rem; right: 2.2rem; z-index: 999;
+      display: flex; align-items: center; gap: 0.75rem;
+      background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+      border: 1px solid rgba(201,168,76,0.5);
+      padding: 0.75rem 1.3rem 0.75rem 0.85rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(201,168,76,0.15);
+      cursor: pointer; text-decoration: none;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      animation: waPulse 3s ease-in-out infinite;
+    }
+    .whatsapp-float:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,168,76,0.4);
+      border-color: rgba(201,168,76,0.8);
+    }
+    .wa-icon-wrap {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, #25D366, #128C4F);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(37,211,102,0.4);
+    }
+    .whatsapp-float svg { width: 22px; height: 22px; fill: #fff; }
+    .wa-text { display: flex; flex-direction: column; }
+    .wa-label {
+      font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500; line-height: 1;
+    }
+    .wa-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem; font-weight: 600; color: #fff;
+      line-height: 1.3; white-space: nowrap;
+    }
+    .wa-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #25D366; flex-shrink: 0;
+      box-shadow: 0 0 6px rgba(37,211,102,0.8);
+      animation: waDot 1.5s ease-in-out infinite;
+    }
+    @keyframes waDot {
+      0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
+    }
+    @keyframes waPulse {
+      0%, 100% { box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(201,168,76,0.15); }
+      50% { box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 16px rgba(201,168,76,0.2); }
+    }
+    @media (max-width: 600px) {
+      .wa-text { display: none; }
+      .wa-dot { display: none; }
+      .whatsapp-float { padding: 0.7rem; border-radius: 50%; }
+      .wa-icon-wrap { width: 44px; height: 44px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Elitesphere<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#subjects">Subjects</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="https://forms.gle/HXtSVqY8rG22Ki7Q9" target="_blank" style="text-decoration:none;"><button class="nav-cta">Book a Session</button></a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Premium Academic Tutoring</div>
+    <h1>We don't just<br/>teach — we shape<br/><em>world leaders.</em></h1>
+    <p class="hero-sub">Elitesphere Academy nurtures the next generation of thinkers, innovators, and change-makers. One-on-one mentorship, personally curated by Miss Neha Arya.</p>
+    <div class="hero-actions">
+      <a href="https://forms.gle/HXtSVqY8rG22Ki7Q9" target="_blank" style="text-decoration:none;"><button class="btn-primary">Book a Session</button></a>
+      <button class="btn-ghost" onclick="document.getElementById('subjects').scrollIntoView({behavior:'smooth'})">View Subjects</button>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">2,400+</div>
+        <div class="stat-label">Students taught</div>
+      </div>
+      <div>
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Grade improvement</div>
+      </div>
+      <div>
+        <div class="stat-num">Global</div>
+        <div class="stat-label">Future Leaders</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="floating-badge">✦ Enrolling Now</div>
+    <div class="hero-image-grid">
+      <div class="hero-img-top">
+        <span style="font-family:'Cormorant Garamond',serif; color: rgba(201,168,76,0.6); font-size: 8rem; font-weight:300;">∑</span>
+      </div>
+      <div class="hero-img-bottom">
+        <div class="hero-card">
+          <div class="hero-card-subject">Founded by</div>
+          <div class="hero-card-name">Miss Neha Arya</div>
+          <div class="hero-card-detail">Founder & Academic Director</div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-subject">Worldwide</div>
+          <div class="hero-card-name">Elitesphere Academy</div>
+          <div class="hero-card-detail">India & International</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section class="founder">
+  <div class="founder-inner reveal">
+    <div class="founder-avatar">N</div>
+    <div>
+      <div class="founder-label">Founder & Director</div>
+      <div class="founder-name">Miss Neha Arya</div>
+      <p class="founder-bio">Miss Neha Arya founded Elitesphere Academy with a singular vision — not just to teach, but to shape the world leaders of tomorrow. Every student is nurtured as a thinker, a communicator, and a changemaker. Academic excellence is only the foundation; character, vision, and impact are the destination.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SUBJECTS -->
+<section class="subjects" id="subjects">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">What We Teach</div>
+    <h2 class="section-title">Knowledge that builds<br/><em>future leaders.</em></h2>
+  </div>
+  <div class="subjects-grid">
+    <div class="subject-card reveal">
+      <div class="subject-icon">∑</div>
+      <div class="subject-name">Mathematics</div>
+      <p class="subject-desc">From foundational arithmetic to advanced calculus, statistics, and linear algebra. We meet you exactly where you are.</p>
+      <div class="subject-levels">
+        <span class="level-tag">School</span><span class="level-tag">Board Exams</span><span class="level-tag">University</span>
+      </div>
+    </div>
+    <div class="subject-card reveal">
+      <div class="subject-icon">⚗</div>
+      <div class="subject-name">Sciences</div>
+      <p class="subject-desc">Physics, Chemistry, and Biology taught by researchers and professors with real-world expertise and exam mastery.</p>
+      <div class="subject-levels">
+        <span class="level-tag">School</span><span class="level-tag">Advanced</span><span class="level-tag">University</span>
+      </div>
+    </div>
+    <div class="subject-card reveal">
+      <div class="subject-icon">✍</div>
+      <div class="subject-name">English & Literature</div>
+      <p class="subject-desc">Critical analysis, essay writing, and literary appreciation. Build eloquence and confidence with every session.</p>
+      <div class="subject-levels">
+        <span class="level-tag">School</span><span class="level-tag">IELTS / TOEFL</span><span class="level-tag">IB</span>
+      </div>
+    </div>
+    <div class="subject-card reveal">
+      <div class="subject-icon">🌍</div>
+      <div class="subject-name">Languages</div>
+      <p class="subject-desc">French, Spanish, German, Mandarin and more. Native and near-native tutors for fluency and exam success.</p>
+      <div class="subject-levels">
+        <span class="level-tag">Beginner</span><span class="level-tag">Fluency</span><span class="level-tag">Exam Prep</span>
+      </div>
+    </div>
+    <div class="subject-card reveal">
+      <div class="subject-icon">⚖</div>
+      <div class="subject-name">Humanities</div>
+      <p class="subject-desc">History, Geography, Economics, and Philosophy. Develop structured thinking and nuanced argument skills.</p>
+      <div class="subject-levels">
+        <span class="level-tag">School</span><span class="level-tag">Board Exams</span><span class="level-tag">University</span>
+      </div>
+    </div>
+    <div class="subject-card reveal">
+      <div class="subject-icon">🌟</div>
+      <div class="subject-name">Leadership & Vision</div>
+      <p class="subject-desc">Developing the next generation of world leaders — critical thinking, public speaking, ethical decision-making, and global awareness.</p>
+      <div class="subject-levels">
+        <span class="level-tag">Mindset</span><span class="level-tag">Communication</span><span class="level-tag">Global Vision</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Investment</div>
+    <h2 class="section-title">Transparent pricing.<br/>Exceptional value.</h2>
+  </div>
+  <div class="pricing-tabs">
+    <button class="tab-btn active" onclick="switchTab('india')">🇮🇳 India</button>
+    <button class="tab-btn" onclick="switchTab('world')">🌐 Worldwide</button>
+  </div>
+
+  <!-- INDIA PRICING -->
+  <div class="pricing-panel active" id="tab-india">
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-name">Foundation</div>
+        <div class="pricing-tagline">For regular support</div>
+        <div class="pricing-price"><sup>₹</sup>5,000<span>/ month</span></div>
+
+        <div class="pricing-divider"></div>
+        <div class="pricing-feature"><span class="check">✓</span> 1-on-1 sessions</div>
+        <div class="pricing-feature"><span class="check">✓</span> Subject specialist tutor</div>
+        <div class="pricing-feature"><span class="check">✓</span> Session notes provided</div>
+        <div class="pricing-feature"><span class="check">✓</span> Flexible scheduling</div>
+        <button class="pricing-btn">Get Started</button>
+      </div>
+      <div class="pricing-card featured reveal">
+        <div class="featured-badge">Most Popular</div>
+        <div class="pricing-name">Scholar</div>
+        <div class="pricing-tagline">Consistent progress</div>
+        <div class="pricing-price"><sup>₹</sup>10,000<span>/ month</span></div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-feature"><span class="check">✓</span> Daily sessions available</div>
+        <div class="pricing-feature"><span class="check">✓</span> Dedicated tutor match</div>
+        <div class="pricing-feature"><span class="check">✓</span> Progress tracking dashboard</div>
+        <div class="pricing-feature"><span class="check">✓</span> Exam strategy sessions</div>
+        <div class="pricing-feature"><span class="check">✓</span> Parent progress reports</div>
+        <button class="pricing-btn">Choose Scholar</button>
+      </div>
+      <div class="pricing-card reveal">
+        <div class="pricing-name">Elite</div>
+        <div class="pricing-tagline">For peak performance</div>
+        <div class="pricing-price"><sup>₹</sup>20,000<span>/ month</span></div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-feature"><span class="check">✓</span> Unlimited sessions</div>
+        <div class="pricing-feature"><span class="check">✓</span> Multiple subject tutors</div>
+        <div class="pricing-feature"><span class="check">✓</span> University / college guidance</div>
+        <div class="pricing-feature"><span class="check">✓</span> Dedicated academic coach</div>
+        <div class="pricing-feature"><span class="check">✓</span> Priority support 7 days</div>
+        <button class="pricing-btn">Go Elite</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORLDWIDE PRICING -->
+  <div class="pricing-panel" id="tab-world">
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-name">Foundation</div>
+        <div class="pricing-tagline">For regular support</div>
+        <div class="pricing-price"><sup>£</sup>20<span>/ hour</span></div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-feature"><span class="check">✓</span> 1-on-1 sessions</div>
+        <div class="pricing-feature"><span class="check">✓</span> Subject specialist tutor</div>
+        <div class="pricing-feature"><span class="check">✓</span> Session notes provided</div>
+        <div class="pricing-feature"><span class="check">✓</span> Flexible scheduling</div>
+        <button class="pricing-btn">Get Started</button>
+      </div>
+      <div class="pricing-card featured reveal">
+        <div class="featured-badge">Most Popular</div>
+        <div class="pricing-name">Scholar</div>
+        <div class="pricing-tagline">Consistent progress</div>
+        <div class="pricing-price"><sup>£</sup>40<span>/ hour</span></div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-feature"><span class="check">✓</span> Daily sessions available</div>
+        <div class="pricing-feature"><span class="check">✓</span> Dedicated tutor match</div>
+        <div class="pricing-feature"><span class="check">✓</span> Progress tracking dashboard</div>
+        <div class="pricing-feature"><span class="check">✓</span> Exam strategy sessions</div>
+        <div class="pricing-feature"><span class="check">✓</span> Parent progress reports</div>
+        <button class="pricing-btn">Choose Scholar</button>
+      </div>
+      <div class="pricing-card reveal">
+        <div class="pricing-name">Elite</div>
+        <div class="pricing-tagline">For peak performance</div>
+        <div class="pricing-price"><sup>£</sup>60<span>/ hour</span></div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-feature"><span class="check">✓</span> Unlimited sessions</div>
+        <div class="pricing-feature"><span class="check">✓</span> Multiple subject tutors</div>
+        <div class="pricing-feature"><span class="check">✓</span> University / college guidance</div>
+        <div class="pricing-feature"><span class="check">✓</span> Dedicated academic coach</div>
+        <div class="pricing-feature"><span class="check">✓</span> Priority support 7 days</div>
+        <button class="pricing-btn">Go Elite</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Student Stories</div>
+    <h2 class="section-title">Results that speak<br/>for themselves.</h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <div class="quote-mark">"</div>
+      <p class="testimonial-text">My Maths grade jumped from a C to an A* in just four months. Miss Neha Arya's team completely changed how I think about problem-solving.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">AM</div>
+        <div>
+          <div class="author-name">Amara Mitchell</div>
+          <div class="author-detail">Board Exam Student · 2025</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="quote-mark">"</div>
+      <p class="testimonial-text">After just two months with Elitesphere, I gained the confidence to crack my Chemistry paper. The structured approach is truly transformative.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">TW</div>
+        <div>
+          <div class="author-name">Rohan Sharma</div>
+          <div class="author-detail">JEE Aspirant · 2025</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="quote-mark">"</div>
+      <p class="testimonial-text">My daughter went from dreading exams to loving learning. Miss Neha Arya's academy found exactly what clicked for her. We couldn't be more grateful.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">PK</div>
+        <div>
+          <div class="author-name">Priya Kapoor</div>
+          <div class="author-detail">Parent · International Student</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section class="cta-section" id="contact">
+  <h2>Ready to reach your<br/><em>full potential?</em></h2>
+  <p class="cta-sub">Join students across India and worldwide who are becoming the thinkers, innovators, and leaders of tomorrow with Elitesphere Academy.</p>
+  <div class="cta-contact">
+    <a href="tel:+917061654402">📞 +91 70616 54402</a>
+    <a href="mailto:arya.aadarsh.oo7@gmail.com">✉ arya.aadarsh.oo7@gmail.com</a>
+    <a href="mailto:hidden.smile.1030@gmail.com">✉ hidden.smile.1030@gmail.com</a>
+  </div>
+  <div class="cta-form">
+    <input class="cta-input" type="email" id="enquiry-email" placeholder="Enter your email address"/>
+    <button class="cta-submit" onclick="submitEnquiry()">Enquire Now</button>
+  </div>
+  <p id="form-msg" style="margin-top:1rem; font-size:0.8rem; color:var(--gold-light); min-height:1.2rem;"></p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-logo">Elitesphere<span>.</span> Academy</div>
+    <div class="footer-contact">
+      <p>Founded by <strong style="color:var(--gold)">Miss Neha Arya</strong></p>
+      <p><a href="tel:+917061654402">+91 70616 54402</a></p>
+      <p><a href="mailto:arya.aadarsh.oo7@gmail.com">arya.aadarsh.oo7@gmail.com</a></p>
+      <p><a href="mailto:hidden.smile.1030@gmail.com">hidden.smile.1030@gmail.com</a></p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-copy">© 2026 Elitesphere Academy. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  // Tab switching
+  function switchTab(tab) {
+    document.querySelectorAll('.pricing-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Enquiry email form → Formspree
+  async function submitEnquiry() {
+    const emailInput = document.getElementById('enquiry-email');
+    const msg = document.getElementById('form-msg');
+    const email = emailInput.value.trim();
+    if (!email || !email.includes('@')) {
+      msg.style.color = '#ff6b6b';
+      msg.textContent = 'Please enter a valid email address.';
+      return;
+    }
+    msg.style.color = 'var(--gold-light)';
+    msg.textContent = 'Sending...';
+    try {
+      const res = await fetch('https://formspree.io/f/xyzknqvw', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email: email, message: 'New enquiry from Elitesphere website', _replyto: email })
+      });
+      if (res.ok) {
+        msg.style.color = '#25D366';
+        msg.textContent = '✓ Received! Miss Neha Arya will contact you shortly.';
+        emailInput.value = '';
+      } else {
+        throw new Error();
+      }
+    } catch {
+      // Fallback: open Google Form
+      window.open('https://forms.gle/HXtSVqY8rG22Ki7Q9', '_blank');
+      msg.style.color = 'var(--gold-light)';
+      msg.textContent = 'Redirecting to booking form...';
+    }
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+<!-- WHATSAPP FLOATING BUTTON PREMIUM -->
+<a class="whatsapp-float" href="https://wa.me/917061654402" target="_blank">
+  <div class="wa-icon-wrap">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+  </div>
+  <div class="wa-text">
+    <span class="wa-label">Chat with us</span>
+    <span class="wa-name">Miss Neha Arya</span>
+  </div>
+  <div class="wa-dot"></div>
+</a>
+
+
+</html>
